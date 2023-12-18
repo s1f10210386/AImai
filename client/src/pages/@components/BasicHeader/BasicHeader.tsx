@@ -4,7 +4,7 @@ import { staticPath } from 'src/utils/$path';
 import { logout } from 'src/utils/login';
 import styles from './BasicHeader.module.css';
 
-export const BasicHeader = ({ user }: { user: UserModel }) => {
+export const BasicHeader = ({ user }: { user: UserModel | null }) => {
   const onLogout = async () => {
     if (confirm('Logout?')) await logout();
   };
@@ -15,7 +15,7 @@ export const BasicHeader = ({ user }: { user: UserModel }) => {
         <img src={staticPath.frourio_svg} height={36} alt="frourio logo" />
 
         <div className={styles.userBtn} onClick={onLogout}>
-          {user.photoURL !== undefined ? (
+          {user?.photoURL !== undefined ? (
             <img
               className={styles.userIcon}
               src={user.photoURL}
@@ -25,7 +25,7 @@ export const BasicHeader = ({ user }: { user: UserModel }) => {
           ) : (
             <HumanIcon size={18} fill="#555" />
           )}
-          <span className={styles.userName}>{user.displayName}</span>
+          <span className={styles.userName}>{user?.displayName}</span>
         </div>
       </div>
     </div>

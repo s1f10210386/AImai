@@ -1,4 +1,5 @@
 import { APP_TITLE } from 'commonConstantsWithClient';
+import { useRouter } from 'next/navigation';
 import { GithubIcon } from 'src/components/icons/GithubIcon';
 import { staticPath } from 'src/utils/$path';
 import { loginWithGitHub } from 'src/utils/login';
@@ -7,10 +8,14 @@ import styles from './index.module.css';
 
 const Login = () => {
   const { loadingElm, addLoading, removeLoading } = useLoading();
+  const router = useRouter();
+
   const login = async () => {
     addLoading();
     await loginWithGitHub();
     removeLoading();
+    await router.push('/');
+    console.log('aa');
   };
 
   return (
