@@ -1,15 +1,19 @@
 import { signInWithEmailAndPassword } from 'firebase/auth';
+import { useAtom } from 'jotai';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import type { SubmitHandler } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
+import { userAtom } from 'src/atoms/user';
 import { auth } from 'src/utils/firebase';
 import { useLoading } from '../@hooks/useLoading';
+import styles from './index.module.css';
 type FormValues = {
   email: string;
   password: string;
 };
 const Login = () => {
+  const [, setUser] = useAtom(userAtom);
   const { loadingElm, addLoading, removeLoading } = useLoading();
   const router = useRouter();
 
@@ -21,16 +25,22 @@ const Login = () => {
 
   const signInWithEmail: SubmitHandler<FormValues> = async (data) => {
     console.log('data', data);
+
     addLoading();
     await signInWithEmailAndPassword(auth, data.email, data.password)
       .then((userCredentiall) => {
-        const user = userCredentiall.user;
-        console.log(user);
+        const uid = userCredentiall.user.uid;
+
+        const user = { id: uid, email: '', displayName: '', photoURL: '' };
+
+        setUser(user);
+        router.push('/');
       })
 
       .catch((error) => {
-        //Firebaseライブラリが自動的に既存メアドだったらエラー吐いてくれるけど分かりずらいから自分で作った
-        if (error.code === 'auth/invalid-credential') {
+        // alert(error);
+        // Firebaseライブラリが自動的に既存メアドだったらエラー吐いてくれるけど分かりずらいから自分で作った
+        if (error.code === 'auth/invalid-login-credentials') {
           alert('そのようなユーザーは存在しません');
         }
       });
@@ -38,11 +48,8 @@ const Login = () => {
   };
 
   return (
-    <div className="h-screen flex flex-col items-center justify-center">
-      <form
-        onSubmit={handleSubmit(signInWithEmail)}
-        className="bg-white p-8 rounded-lg shadow-md w-96"
-      >
+    <div className={styles.container}>
+      <form onSubmit={handleSubmit(signInWithEmail)} className={styles.main}>
         <h1 className="mb-4 text-2xl text-gray-700 font-medium">ログイン</h1>
 
         <div className="mb-4">
