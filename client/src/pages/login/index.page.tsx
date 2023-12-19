@@ -13,7 +13,7 @@ type FormValues = {
   password: string;
 };
 const Login = () => {
-  const [, setUser] = useAtom(userAtom);
+  const [user, setUser] = useAtom(userAtom);
   const { loadingElm, addLoading, removeLoading } = useLoading();
   const router = useRouter();
 

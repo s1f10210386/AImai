@@ -3,6 +3,7 @@ import { useAtom } from 'jotai';
 import type { ChangeEvent, FormEvent } from 'react';
 import { useEffect, useState } from 'react';
 // import { Loading } from 'src/components/Loading/Loading';
+import { useRouter } from 'next/navigation';
 import { BasicHeader } from 'src/pages/@components/BasicHeader/BasicHeader';
 import { apiClient } from 'src/utils/apiClient';
 import { returnNull } from 'src/utils/returnNull';
@@ -13,9 +14,17 @@ const Home = () => {
   const [user] = useAtom(userAtom);
   const [tasks, setTasks] = useState<TaskModel[]>();
   const [label, setLabel] = useState('');
+  const router = useRouter();
   const inputLabel = (e: ChangeEvent<HTMLInputElement>) => {
     setLabel(e.target.value);
   };
+
+  useEffect(() => {
+    if (user === null) {
+      router.push('/login');
+    }
+  });
+
   const fetchTasks = async () => {
     const tasks = await apiClient.tasks.$get().catch(returnNull);
 
