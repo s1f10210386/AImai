@@ -17,6 +17,8 @@ const Login = () => {
   const { loadingElm, addLoading, removeLoading } = useLoading();
   const router = useRouter();
 
+  console.log('User', user);
+
   const {
     register,
     handleSubmit,
