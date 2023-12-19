@@ -1,7 +1,7 @@
 import type { UserModel } from 'commonTypesWithClient/models';
 import { HumanIcon } from 'src/components/icons/HumanIcon';
 import { staticPath } from 'src/utils/$path';
-import { logout } from 'src/utils/login';
+// import { logout } from 'src/utils/login';
 import styles from './BasicHeader.module.css';
 
 export const BasicHeader = ({ user }: { user: UserModel | null }) => {
@@ -25,7 +25,7 @@ export const BasicHeader = ({ user }: { user: UserModel | null }) => {
           ) : (
             <HumanIcon size={18} fill="#555" />
           )}
-          <span className={styles.userName}>{user?.displayName}</span>
+          <span className={styles.userName}>{user?.email}</span>
         </div>
       </div>
     </div>

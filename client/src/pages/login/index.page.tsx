@@ -30,8 +30,9 @@ const Login = () => {
     await signInWithEmailAndPassword(auth, data.email, data.password)
       .then((userCredentiall) => {
         const uid = userCredentiall.user.uid;
+        const email = userCredentiall.user.email;
 
-        const user = { id: uid, email: '', displayName: '', photoURL: '' };
+        const user = { id: uid, email, displayName: '', photoURL: '' };
 
         setUser(user);
         router.push('/');

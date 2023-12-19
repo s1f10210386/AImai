@@ -3,7 +3,7 @@ import { taskIdParser } from '../service/idParsers';
 
 export type UserModel = {
   id: string;
-  email: string;
+  email: string | null;
   displayName: string | undefined;
   photoURL: string | undefined;
 };
