@@ -4,6 +4,7 @@ import type { ChangeEvent, FormEvent } from 'react';
 import { useEffect, useState } from 'react';
 // import { Loading } from 'src/components/Loading/Loading';
 import { useRouter } from 'next/navigation';
+import { Loading } from 'src/components/Loading/Loading';
 import { BasicHeader } from 'src/pages/@components/BasicHeader/BasicHeader';
 import { apiClient } from 'src/utils/apiClient';
 import { returnNull } from 'src/utils/returnNull';
@@ -14,16 +15,15 @@ const Home = () => {
   const [user] = useAtom(userAtom);
   const [tasks, setTasks] = useState<TaskModel[]>();
   const [label, setLabel] = useState('');
+
   const router = useRouter();
   const inputLabel = (e: ChangeEvent<HTMLInputElement>) => {
     setLabel(e.target.value);
   };
 
-  useEffect(() => {
-    if (user === null) {
-      router.push('/login');
-    }
-  });
+  // if (!user) {
+  //   router.push('/login');
+  // }
 
   const fetchTasks = async () => {
     const tasks = await apiClient.tasks.$get().catch(returnNull);
@@ -58,7 +58,11 @@ const Home = () => {
 
   console.log('user', user);
 
-  // if (!user) return <Loading visible />;
+  //ログイン状態じゃないならローディングしてリダイレクト
+  if (!user) {
+    router.push('/login');
+    return <Loading visible />;
+  }
 
   return (
     <>
@@ -66,27 +70,6 @@ const Home = () => {
       <div className={styles.title} style={{ marginTop: '160px' }}>
         AImai
       </div>
-
-      {/* <form style={{ textAlign: 'center', marginTop: '80px' }} onSubmit={createTask}>
-        <input value={label} type="text" onChange={inputLabel} />
-        <input type="submit" value="ADD" />
-      </form>
-      <ul className={styles.tasks}>
-        {tasks?.map((task) => (
-          <li key={task.id}>
-            <label>
-              <input type="checkbox" checked={task.done} onChange={() => toggleDone(task)} />
-              <span>{task.label}</span>
-            </label>
-            <input
-              type="button"
-              value="DELETE"
-              className={styles.deleteBtn}
-              onClick={() => deleteTask(task)}
-            />
-          </li>
-        ))}
-      </ul> */}
     </>
   );
 };
