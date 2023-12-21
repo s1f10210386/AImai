@@ -19,3 +19,86 @@
   --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -2px rgb(0 0 0 / 10%);
   --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
 }
+
+.name {
+  margin-bottom: 1rem /* 16px */;
+  font-size: 1.5rem /* 24px */;
+  font-weight: 500;
+  line-height: 2rem /* 32px */;
+  color: rgb(55 65 81 / var(--tw-text-opacity));
+
+  --tw-text-opacity: 1;
+}
+
+.formContainer {
+  margin-bottom: 1rem /* 16px */;
+}
+
+.label {
+  display: block;
+  font-size: 0.875rem /* 14px */;
+  font-weight: 500;
+  line-height: 1.25rem /* 20px */;
+  color: rgb(75 85 99 / var(--tw-text-opacity));
+
+  --tw-text-opacity: 1;
+}
+
+.input {
+  width: 100%;
+  padding: 0.5rem /* 8px */;
+  margin-top: 0.25rem /* 4px */;
+  border-width: 2px;
+  border-radius: 0.375rem /* 6px */;
+}
+
+.error {
+  --tw-text-opacity: 1;
+
+  font-size: 0.875rem /* 14px */;
+  line-height: 1.25rem /* 20px */;
+  color: rgb(220 38 38 / var(--tw-text-opacity));
+}
+
+.login {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.loginButton {
+  --tw-bg-opacity: 1;
+
+  padding: 0.5rem 1rem;
+  font-weight: 700;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+  background-color: rgb(59 130 246 / var(--tw-bg-opacity));
+  background-color: rgb(29 78 216 / var(--tw-bg-opacity));
+  border-radius: 0.25rem /* 4px */;
+
+  --tw-text-opacity: 1;
+  --tw-bg-opacity: 1;
+}
+
+.resigterContainer {
+  margin-top: 1rem /* 16px */;
+}
+
+.register {
+  --tw-text-opacity: 1;
+  --tw-text-opacity: 1;
+
+  color: rgb(75 85 99 / var(--tw-text-opacity));
+}
+
+.registerLink {
+  --tw-text-opacity: 1;
+
+  margin-left: 0.25rem /* 4px */;
+  font-size: 0.875rem /* 14px */;
+  font-weight: 700;
+  line-height: 1.25rem /* 20px */;
+  color: rgb(59 130 246 / var(--tw-text-opacity));
+  color: rgb(29 78 216 / var(--tw-text-opacity));
+
+  --tw-text-opacity: 1;
+}
