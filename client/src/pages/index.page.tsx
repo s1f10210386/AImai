@@ -2,7 +2,7 @@ import { useAtom } from 'jotai';
 import { useRouter } from 'next/navigation';
 import Chat from 'src/components/Chat/index.module';
 import { Loading } from 'src/components/Loading/Loading';
-import Three from 'src/components/Three/index.module';
+import MenuBar from 'src/components/MenuBar/index.module';
 import { userAtom } from '../atoms/user';
 import styles from './index.module.css';
 
@@ -20,7 +20,7 @@ const Home = () => {
     <div className={styles.container}>
       <div className={styles.main} style={{ width: '120vh' }}>
         <div className={styles.three}>
-          <Three />
+          <MenuBar />
         </div>
         <div className={styles.chat}>
           <Chat />

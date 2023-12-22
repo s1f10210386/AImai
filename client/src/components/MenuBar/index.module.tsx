@@ -1,11 +1,11 @@
 import styles from './index.module.css';
 
-const Three = () => {
+const MenuBar = () => {
   return (
     <div className={styles.container}>
-      <div className={styles.roomName}>Three</div>
+      <div className={styles.roomName}>Menu</div>
     </div>
   );
 };
 
-export default Three;
+export default MenuBar;

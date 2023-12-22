@@ -3,19 +3,18 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
+  background-color: antiquewhite;
 }
 
 .main {
-  display: flex;
+  display: block;
   height: 100%;
 }
 
 .three {
-  width: 40%;
-  height: 100%;
-  border-right-width: 1px;
+  height: 8%;
 }
 
 .chat {
-  width: 60%;
+  height: 92%;
 }
