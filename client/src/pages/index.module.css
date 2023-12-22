@@ -5,7 +5,17 @@
   height: 100vh;
 }
 
-.chat {
+.main {
   display: flex;
   height: 100%;
+}
+
+.three {
+  width: 40%;
+  height: 100%;
+  border-right-width: 1px;
+}
+
+.chat {
+  width: 60%;
 }
