@@ -14,3 +14,27 @@ model Task {
   done      Boolean
   createdAt DateTime
 }
+
+model User {
+  id        String    @id
+  username  String    @unique
+  sessions  Session[]
+}
+
+model Session {
+  id        Int       @id @default(autoincrement())
+  userId    String
+  user      User      @relation(fields: [userId], references: [id])
+  startTime DateTime
+  endTime   DateTime?
+  messages  Message[]
+}
+
+model Message {
+  id        Int       @id @default(autoincrement())
+  sessionId Int
+  session   Session   @relation(fields: [sessionId], references: [id])
+  sender    String
+  content   String
+  sentAt    DateTime
+}

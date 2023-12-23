@@ -19,7 +19,7 @@ const Home = () => {
   return (
     <div className={styles.container}>
       <div className={styles.main} style={{ width: '120vh' }}>
-        <div className={styles.three}>
+        <div className={styles.menu}>
           <MenuBar />
         </div>
         <div className={styles.chat}>
