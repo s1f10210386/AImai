@@ -1,39 +1,73 @@
-.container {
+/* ChatStyles.module.css */
+.chatContainer {
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding: 10rem /* 16px */;
-  background-color: gainsboro;
+  padding: 1rem; /* p-4 */
+  background-color: #6b7280; /* bg-gray-500 */
 }
 
-.roomName {
-  margin-bottom: 1rem /* 16px */;
-  font-size: 1.5rem /* 24px */;
-  font-weight: 600;
-  line-height: 2rem /* 32px */;
-  color: red;
+.chatHeader {
+  margin-bottom: 1rem; /* mb-4 */
+  font-size: 1.5rem; /* text-2xl */
+  font-weight: 600; /* font-semibold */
+  color: white; /* text-white */
 }
 
-.textRight {
-  text-align: right;
+.messageList {
+  flex-grow: 1;
+  margin-bottom: 1rem; /* mb-4 */
+  overflow-y: auto;
 }
 
-.textLeft {
-  text-align: left;
+.message {
+  text-align: right; /* text-right */
+}
+
+.messageLeft {
+  text-align: left; /* text-left */
 }
 
 .userMessage {
   display: inline-block;
-  padding: 0.5rem 1rem;
-  margin-bottom: 0.5rem;
-  background-color: #60a5fa;
-  border-radius: 0.25rem;
+  padding: 0.5rem 1rem; /* px-4 py-2 */
+  margin-bottom: 0.5rem; /* mb-2 */
+  background-color: #3b82f6; /* bg-blue-500 */
+  border-radius: 0.25rem; /* rounded */
 }
 
-.botsMessage {
+.otherMessage {
   display: inline-block;
   padding: 0.5rem 1rem;
   margin-bottom: 0.5rem;
-  background-color: #34d399;
+  background-color: #10b981; /* bg-green-500 */
   border-radius: 0.25rem;
+}
+
+/* チャットバー */
+.container {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.input {
+  width: 100%; /* w-full */
+  padding: 0.5rem; /* p-2 */
+  padding-right: 2.5rem; /* pr-10 */
+  border: 2px solid; /* border-2 */
+  border-radius: 0.25rem; /* rounded */
+  outline: none; /* focus:outline-none */
+}
+
+.input:focus {
+  outline: none;
+}
+
+.button {
+  position: absolute;
+  top: 0;
+  right: 0.5rem; /* right-2 */
+  bottom: 0;
+  display: flex;
+  align-items: center;
 }

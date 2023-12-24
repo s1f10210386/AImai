@@ -19,6 +19,10 @@
   },
   "dependencies": {
     "@aspida/axios": "^1.14.0",
+    "@emotion/react": "^11.11.3",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.15.1",
+    "@mui/material": "^5.15.1",
     "api": "file:../server/api",
     "aspida": "^1.14.0",
     "axios": "^1.4.0",
