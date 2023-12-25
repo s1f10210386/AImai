@@ -28,7 +28,7 @@ const Register = () => {
         // Signed in
         const user = userCredential.user.uid;
         const userEmail = userCredential.user.email;
-
+        alert('登録が完了しました！ログインしてください');
         if (userEmail !== null) {
           await apiClient.user.post({ body: { id: user, email: userEmail } }).catch(returnNull);
           router.push('/login');

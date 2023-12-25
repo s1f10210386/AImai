@@ -8,6 +8,7 @@ import styles from './index.module.css';
 
 const MenuBar = () => {
   const router = useRouter();
+  const userEmail = auth.currentUser?.email;
 
   const logout = () => {
     auth.signOut();
@@ -20,7 +21,7 @@ const MenuBar = () => {
       <IconButton color="primary" sx={{ marginLeft: '5px' }} onClick={() => logout()}>
         <LogoutIcon sx={{ fontSize: '30px' }} />
       </IconButton>
-
+      <div>{userEmail}</div>
       <IconButton color="primary" sx={{ marginLeft: 'auto' }}>
         <CalendarMonthIcon sx={{ fontSize: '30px' }} />
       </IconButton>
