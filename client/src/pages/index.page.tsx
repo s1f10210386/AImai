@@ -1,8 +1,8 @@
 import { useAtom } from 'jotai';
 import { useRouter } from 'next/navigation';
-import Chat from 'src/components/Chat/index.module';
+import Chat from 'src/components/Chat/index.page';
 import { Loading } from 'src/components/Loading/Loading';
-import MenuBar from 'src/components/MenuBar/index.module';
+import MenuBar from 'src/components/MenuBar/index.page';
 import { userAtom } from '../atoms/user';
 import styles from './index.module.css';
 
