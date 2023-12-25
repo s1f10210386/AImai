@@ -37,6 +37,10 @@ const Chat = () => {
             key={index}
             className={message.sender === 'user' ? styles.message : styles.messageLeft}
           >
+            <div className={message.sender === 'user' ? styles.userAvatar : styles.botAvatar}>
+              〇
+            </div>
+
             <div className={message.sender === 'user' ? styles.userMessage : styles.otherMessage}>
               <p style={{ color: message.sender === 'user' ? 'white' : 'black' }}>
                 {message.content}

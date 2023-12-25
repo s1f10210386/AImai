@@ -3,7 +3,8 @@
   align-items: center;
   justify-content: flex-start;
   height: 100%;
-  background-color: white;
+  background-color: aliceblue;
+  border: 1px solid #e5e7eb;
 }
 
 .button {
