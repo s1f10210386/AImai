@@ -59,11 +59,11 @@ const Chat = () => {
           placeholder="メッセージ"
           className={styles.input}
           onChange={(e) => setInputMessage(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter') {
-              sendMessage();
-            }
-          }}
+          // onKeyDown={(e) => {
+          //   if (e.key === 'Enter') {
+          //     sendMessage();
+          //   }
+          // }}
         />
 
         <IconButton
