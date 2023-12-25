@@ -61,7 +61,6 @@ const Chat = () => {
           onChange={(e) => setInputMessage(e.target.value)}
           onKeyDown={(e) => {
             if (e.key === 'Enter') {
-              // 修正: 比較演算子を使用
               sendMessage();
             }
           }}
