@@ -3,7 +3,9 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import type { SubmitHandler } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
+import { apiClient } from 'src/utils/apiClient';
 import { auth } from 'src/utils/firebase';
+import { returnNull } from 'src/utils/returnNull';
 import styles from './index.module.css';
 
 type FormValues = {
@@ -20,18 +22,21 @@ const Register = () => {
     formState: { errors },
   } = useForm<FormValues>();
 
-  //dataはユーザーが入力したもの
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     await createUserWithEmailAndPassword(auth, data.email, data.password)
-      .then((userCredential) => {
+      .then(async (userCredential) => {
         // Signed in
-        const user = userCredential.user;
-        router.push('/login');
+        const user = userCredential.user.uid;
+        const userEmail = userCredential.user.email;
+
+        if (userEmail !== null) {
+          await apiClient.user.post({ body: { id: user, email: userEmail } }).catch(returnNull);
+          router.push('/login');
+        }
       })
 
       .catch((error) => {
         //alert(error);
-        //Firebaseライブラリが自動的に既存メアドだったらエラー吐いてくれるけど分かりずらいから自分で作った
         if (error.code === 'auth/email-already-in-use') {
           alert('このメールアドレスはすでに使用されています。');
         }
