@@ -50,10 +50,10 @@ const Login = () => {
 
   return (
     <div className={styles.container}>
-      <form onSubmit={handleSubmit(signInWithEmail)} className={styles.main}>
-        <h1 className={styles.name}>ログイン</h1>
+      <form onSubmit={handleSubmit(signInWithEmail)} className={styles.form}>
+        <h1 className={styles.title}>ログイン</h1>
 
-        <div className={styles.formContainer}>
+        <div style={{ marginBottom: '16px' }}>
           <label className={styles.label}>Email</label>
           {/*以下react-hook-formめちゃ便利*/}
           <input
@@ -67,10 +67,10 @@ const Login = () => {
             type="text"
             className={styles.input}
           />
-          {errors.email && <span className={styles.name}>{errors.email.message}</span>}
+          {errors.email && <span className={styles.errorMsg}>{errors.email.message}</span>}
         </div>
 
-        <div className={styles.formContainer}>
+        <div style={{ marginTop: '16px' }}>
           <label className={styles.label}>Password</label>
           <input
             {...register('password', {
@@ -83,17 +83,17 @@ const Login = () => {
             type="Password"
             className={styles.input}
           />
-          {errors.password && <span className={styles.error}>{errors.password.message}</span>}
+          {errors.password && <span className={styles.errorMsg}>{errors.password.message}</span>}
         </div>
 
-        <div className={styles.login}>
-          <button type="submit" className={styles.loginButton}>
+        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <button type="submit" className={styles.submitButton}>
             ログイン
           </button>
         </div>
-        <div className={styles.resigterContainer}>
-          <span className={styles.register}>新規登録の方はこちらから</span>
-          <Link href={'/register'} className={styles.registerLink}>
+        <div style={{ marginTop: '16px' }}>
+          <span style={{ fontSize: '14px', lineHeight: '20px' }}>新規登録の方はこちらから</span>
+          <Link href={'/register'} className={styles.linkText}>
             新規登録ページへ
           </Link>
         </div>

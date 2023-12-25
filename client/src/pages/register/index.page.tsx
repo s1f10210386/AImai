@@ -49,7 +49,7 @@ const Register = () => {
         <h1 className={styles.title}>新規登録</h1>
 
         {/* メールアドレス */}
-        <div className="mb-4">
+        <div style={{ marginBottom: '16px' }}>
           <label className={styles.label}>Email</label>
           <input
             {...register('email', {
