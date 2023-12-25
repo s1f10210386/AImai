@@ -1,5 +1,4 @@
 import SendIcon from '@mui/icons-material/Send';
-import { Button } from '@mui/material';
 import { useState } from 'react';
 import styles from './index.module.css';
 const Chat = () => {
@@ -63,11 +62,9 @@ const Chat = () => {
           }}
         />
 
-        <div style={{ position: 'absolute', display: 'flex', top: '0' }}>
-          <Button>
-            <SendIcon />
-          </Button>
-        </div>
+        <button className={styles.button}>
+          <SendIcon />
+        </button>
       </div>
     </div>
   );
