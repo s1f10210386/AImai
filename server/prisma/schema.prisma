@@ -20,3 +20,26 @@ model User {
   email String
 }
 
+model Message{
+  id String
+  content String
+  UserId User[]
+  Point String //メッセージ一つ一つの点数
+  contenId @relation([User],reference[Message.id])
+}
+
+model Session{
+  id String
+  done Boolean //一日一回でユーザーがセッション終了したらTrueにしてアーカイブ化する
+  createdAt //ここでいつの日付に作ったかを管理できる
+  Point //その日の会話全てを通した点数（現状は各メッセージの平均点を取ればいいかな？Message.Pointの合計点/その日のユーザーのMessageの数→わざわざこうやらんでも平均点出せる方法あるならそっちでやる）
+}
+
+model Custom{
+  id String
+  age String 
+  sex String
+  free String //ここはユーザーが自由にGPTをカスタムできる(ユーザーが自分でプロンプトエンジニアリングが作れるイメージ)
+}
+
+
