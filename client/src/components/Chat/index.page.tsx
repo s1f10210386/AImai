@@ -12,17 +12,17 @@ const Chat = () => {
 
   const [inputMessage, setInputMessage] = useState<string>('');
 
-  const sendMessage = async () => {
-    const gptResponse = async () => {
-      const response = await openai.chat.completions.create({
-        messages: [{ role: 'user', content: inputMessage }],
-        model: 'gpt-3.5-turbo',
-      });
-      const botResponse = response.choices[0].message.content;
+  // const sendMessage = async () => {
+  //   const gptResponse = async () => {
+  //     const response = await openai.chat.completions.create({
+  //       messages: [{ role: 'user', content: inputMessage }],
+  //       model: 'gpt-3.5-turbo',
+  //     });
+  //     const botResponse = response.choices[0].message.content;
 
-      await apiClient;
-    };
-  };
+  //     await apiClient;
+  //   };
+  // };
 
   const messages = [
     { sender: 'user', content: 'ぴーーーーん' },
