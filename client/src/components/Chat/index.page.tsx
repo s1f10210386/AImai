@@ -1,13 +1,26 @@
 import SendIcon from '@mui/icons-material/Send';
 import { IconButton } from '@mui/material';
+import OpenAI from 'openai';
 import { useState } from 'react';
 import styles from './index.module.css';
 const Chat = () => {
-  // const openai = new OpenAI({
-  //   apiKey: process.env.NEXT_PUBLIC_OPENAI_KEY,
+  const openai = new OpenAI({
+    apiKey: process.env.NEXT_PUBLIC_OPENAI_KEY,
 
-  //   dangerouslyAllowBrowser: true,
-  // });
+    dangerouslyAllowBrowser: true,
+  });
+
+  const [inputMessage, setInputMessage] = useState<string>('');
+
+  const sendMessage = async () => {
+    const gptResponse = async () => {
+      const response = await openai.chat.completions.create({
+        messages: [{ role: 'user', content: inputMessage }],
+        model: 'gpt-3.5-turbo',
+      });
+      const botResponse = response.choices[0].message.content;
+    };
+  };
 
   const messages = [
     { sender: 'user', content: 'ぴーーーーん' },
@@ -15,17 +28,6 @@ const Chat = () => {
     { sender: 'user', content: 'つらいよおおおお' },
     { semder: 'bot', content: '詳しく聞かせてください！何がつらいんですか' },
   ];
-
-  const [inputMessage, setInputMessage] = useState<string>('');
-  // const gpt3Response = async () => {
-  //   const response = await openai.chat.completions.create({
-  //     messages: [{ role: 'user', content: '眠いです' }],
-  //     model: 'gpt-3.5-turbo',
-  //   });
-  //   console.log(response);
-  // };
-
-  // gpt3Response();
 
   return (
     <div className={styles.chatContainer}>
@@ -75,6 +77,9 @@ const Chat = () => {
             bottom: '0',
             display: 'flex',
             alignItems: 'center',
+          }}
+          onClick={() => {
+            gptResponse();
           }}
         >
           <SendIcon sx={{ fontSize: '25px' }} />
