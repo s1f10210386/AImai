@@ -18,27 +18,14 @@ model Task {
 model User {
   id    String   @id @default(uuid())
   email String
-  rooms Room[]
   messages Message[]
-}
-
-
-model Room {
-  id      String    @id @default(uuid())
-  name    String
-  date    DateTime  @unique
-  isOpen  Boolean   @default(true)
-  userId String
-  messages Message[]
-  user    User      @relation(fields: [userId], references: [id])
 }
 
 model Message {
   id        String   @id @default(uuid())
   content   String
   userId    String
-  roomId    String
   timestamp DateTime @default(now())
+  role      String
   user      User     @relation(fields: [userId], references: [id])
-  room      Room     @relation(fields: [roomId], references: [id])
 }

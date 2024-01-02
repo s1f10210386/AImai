@@ -1,28 +1,37 @@
 import SendIcon from '@mui/icons-material/Send';
 import { IconButton } from '@mui/material';
-import OpenAI from 'openai';
 import { useState } from 'react';
+import { apiClient } from 'src/utils/apiClient';
+import { auth } from 'src/utils/firebase';
 import styles from './index.module.css';
 const Chat = () => {
-  const openai = new OpenAI({
-    apiKey: process.env.NEXT_PUBLIC_OPENAI_KEY,
+  // const openai = new OpenAI({
+  //   apiKey: process.env.NEXT_PUBLIC_OPENAI_KEY,
 
-    dangerouslyAllowBrowser: true,
-  });
+  //   dangerouslyAllowBrowser: true,
+  // });
 
   const [inputMessage, setInputMessage] = useState<string>('');
+  const user = auth.currentUser?.uid;
 
-  // const sendMessage = async () => {
-  //   const gptResponse = async () => {
-  //     const response = await openai.chat.completions.create({
-  //       messages: [{ role: 'user', content: inputMessage }],
-  //       model: 'gpt-3.5-turbo',
-  //     });
-  //     const botResponse = response.choices[0].message.content;
+  const sendMessage = async () => {
+    if (!inputMessage.trim()) return;
+    if (user === undefined) return;
 
-  //     await apiClient;
-  //   };
-  // };
+    await apiClient.message.post({
+      body: { content: inputMessage, userId: user, role: 'user' },
+    });
+    //   const gptResponse = async () => {
+    //     const response = await openai.chat.completions.create({
+    //       messages: [{ role: 'user', content: inputMessage }],
+    //       model: 'gpt-3.5-turbo',
+    //     });
+    //     const botResponse = response.choices[0].message.content;
+
+    //     await apiClient;
+    //   };
+    setInputMessage('');
+  };
 
   const messages = [
     { sender: 'user', content: 'ぴーーーーん' },
@@ -81,7 +90,7 @@ const Chat = () => {
             alignItems: 'center',
           }}
           onClick={() => {
-            gptResponse();
+            sendMessage();
           }}
         >
           <SendIcon sx={{ fontSize: '25px' }} />
