@@ -18,28 +18,27 @@ model Task {
 model User {
   id    String   @id @default(uuid())
   email String
-}
-
-model Message{
-  id String
-  content String
-  UserId User[]
-  Point String //メッセージ一つ一つの点数
-  contenId @relation([User],reference[Message.id])
-}
-
-model Session{
-  id String
-  done Boolean //一日一回でユーザーがセッション終了したらTrueにしてアーカイブ化する
-  createdAt //ここでいつの日付に作ったかを管理できる
-  Point //その日の会話全てを通した点数（現状は各メッセージの平均点を取ればいいかな？Message.Pointの合計点/その日のユーザーのMessageの数→わざわざこうやらんでも平均点出せる方法あるならそっちでやる）
-}
-
-model Custom{
-  id String
-  age String 
-  sex String
-  free String //ここはユーザーが自由にGPTをカスタムできる(ユーザーが自分でプロンプトエンジニアリングが作れるイメージ)
+  rooms Room[]
+  messages Message[]
 }
 
 
+model Room {
+  id      String    @id @default(uuid())
+  name    String
+  date    DateTime  @unique
+  isOpen  Boolean   @default(true)
+  userId String
+  messages Message[]
+  user    User      @relation(fields: [userId], references: [id])
+}
+
+model Message {
+  id        String   @id @default(uuid())
+  content   String
+  userId    String
+  roomId    String
+  timestamp DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+  room      Room     @relation(fields: [roomId], references: [id])
+}
