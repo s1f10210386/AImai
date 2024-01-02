@@ -1,8 +1,15 @@
 import { prismaClient } from '$/service/prismaClient';
 
+export const fetchMessage = async (userId: string) => {
+  const message = await prismaClient.message.findMany({
+    where: {
+      userId,
+    },
+  });
+  return message;
+};
 export const postMessage = async (content: string, userId: string, role: string) => {
-  console.log('postMessage');
-  const message = await prismaClient.message.create({
+  const messages = await prismaClient.message.create({
     data: {
       content,
       userId,
@@ -10,6 +17,6 @@ export const postMessage = async (content: string, userId: string, role: string)
       role,
     },
   });
-  console.log(message);
-  return message;
+  console.log(messages);
+  return messages;
 };

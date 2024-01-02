@@ -3,7 +3,14 @@ import { IconButton } from '@mui/material';
 import { useState } from 'react';
 import { apiClient } from 'src/utils/apiClient';
 import { auth } from 'src/utils/firebase';
+import { returnNull } from 'src/utils/returnNull';
 import styles from './index.module.css';
+
+type Message = {
+  content: string;
+  role: string;
+  timestamp: Date;
+};
 const Chat = () => {
   // const openai = new OpenAI({
   //   apiKey: process.env.NEXT_PUBLIC_OPENAI_KEY,
@@ -12,15 +19,26 @@ const Chat = () => {
   // });
 
   const [inputMessage, setInputMessage] = useState<string>('');
+  const [messages, setMessages] = useState<Message[]>([]);
   const user = auth.currentUser?.uid;
 
+  // 全メッセージを取得
+  const fetchMessages = async () => {
+    if (user === undefined) return;
+    const messageList = await apiClient.message.$get({ query: { userId: user } }).catch(returnNull);
+    if (messageList !== null) setMessages(messageList);
+  };
+
+  // ユーザーのメッセージ送信
   const sendMessage = async () => {
     if (!inputMessage.trim()) return;
     if (user === undefined) return;
 
-    await apiClient.message.post({
-      body: { content: inputMessage, userId: user, role: 'user' },
-    });
+    await apiClient.message
+      .post({
+        body: { content: inputMessage, userId: user, role: 'user' },
+      })
+      .catch(returnNull);
     //   const gptResponse = async () => {
     //     const response = await openai.chat.completions.create({
     //       messages: [{ role: 'user', content: inputMessage }],
@@ -31,14 +49,8 @@ const Chat = () => {
     //     await apiClient;
     //   };
     setInputMessage('');
+    await fetchMessages();
   };
-
-  const messages = [
-    { sender: 'user', content: 'ぴーーーーん' },
-    { semder: 'bot', content: '私はカウンセラーです！どうかしましたか？' },
-    { sender: 'user', content: 'つらいよおおおお' },
-    { semder: 'bot', content: '詳しく聞かせてください！何がつらいんですか' },
-  ];
 
   return (
     <div className={styles.chatContainer}>
@@ -49,14 +61,12 @@ const Chat = () => {
         {messages.map((message, index) => (
           <div
             key={index}
-            className={message.sender === 'user' ? styles.message : styles.messageLeft}
+            className={message.role === 'user' ? styles.message : styles.messageLeft}
           >
-            <div className={message.sender === 'user' ? styles.userAvatar : styles.botAvatar}>
-              〇
-            </div>
+            <div className={message.role === 'user' ? styles.userAvatar : styles.botAvatar}>〇</div>
 
-            <div className={message.sender === 'user' ? styles.userMessage : styles.otherMessage}>
-              <p style={{ color: message.sender === 'user' ? 'white' : 'black' }}>
+            <div className={message.role === 'user' ? styles.userMessage : styles.otherMessage}>
+              <p style={{ color: message.role === 'user' ? 'white' : 'black' }}>
                 {message.content}
               </p>
             </div>

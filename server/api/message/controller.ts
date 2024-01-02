@@ -1,10 +1,13 @@
-import { postMessage } from '$/repository/messageRepository';
+import { fetchMessage, postMessage } from '$/repository/messageRepository';
 import { defineController } from './$relay';
 
 export default defineController(() => ({
-  get: () => ({ status: 200, body: 'Hello' }),
+  get: async ({ query }) => {
+    const result = await fetchMessage(query.userId);
+    return { status: 200, body: result };
+  },
   post: async ({ body }) => {
-    console.log('kita');
-    return { status: 201, body: await postMessage(body.content, body.userId, body.role) };
+    const results = await postMessage(body.content, body.userId, body.role);
+    return { status: 201, body: results };
   },
 }));
