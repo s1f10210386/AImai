@@ -17,6 +17,5 @@ export const postMessage = async (content: string, userId: string, role: string)
       role,
     },
   });
-  console.log(messages);
   return messages;
 };

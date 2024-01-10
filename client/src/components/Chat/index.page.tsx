@@ -1,6 +1,7 @@
 import SendIcon from '@mui/icons-material/Send';
 import { IconButton } from '@mui/material';
-import { useState } from 'react';
+import { OpenAI } from 'openai';
+import { useEffect, useState } from 'react';
 import { apiClient } from 'src/utils/apiClient';
 import { auth } from 'src/utils/firebase';
 import { returnNull } from 'src/utils/returnNull';
@@ -12,24 +13,29 @@ type Message = {
   timestamp: Date;
 };
 const Chat = () => {
-  // const openai = new OpenAI({
-  //   apiKey: process.env.NEXT_PUBLIC_OPENAI_KEY,
-
-  //   dangerouslyAllowBrowser: true,
-  // });
+  const openai = new OpenAI({
+    apiKey: process.env.NEXT_PUBLIC_OPENAI_KEY,
+    baseURL: 'https://api.openai.iniad.org/api/v1',
+    dangerouslyAllowBrowser: true,
+  });
 
   const [inputMessage, setInputMessage] = useState<string>('');
   const [messages, setMessages] = useState<Message[]>([]);
   const user = auth.currentUser?.uid;
 
   // 全メッセージを取得
+
   const fetchMessages = async () => {
     if (user === undefined) return;
     const messageList = await apiClient.message.$get({ query: { userId: user } }).catch(returnNull);
     if (messageList !== null) setMessages(messageList);
   };
 
-  // ユーザーのメッセージ送信
+  useEffect(() => {
+    fetchMessages();
+  });
+
+  // ユーザーのメッセージ送信(DBに保存)
   const sendMessage = async () => {
     if (!inputMessage.trim()) return;
     if (user === undefined) return;
@@ -39,16 +45,24 @@ const Chat = () => {
         body: { content: inputMessage, userId: user, role: 'user' },
       })
       .catch(returnNull);
-    //   const gptResponse = async () => {
-    //     const response = await openai.chat.completions.create({
-    //       messages: [{ role: 'user', content: inputMessage }],
-    //       model: 'gpt-3.5-turbo',
-    //     });
-    //     const botResponse = response.choices[0].message.content;
 
-    //     await apiClient;
-    //   };
     setInputMessage('');
+
+    const response = await openai.chat.completions.create({
+      messages: [{ role: 'user', content: inputMessage }],
+      model: 'gpt-3.5-turbo',
+    });
+    const botResponse = response.choices[0].message.content;
+
+    console.log('botResponse', botResponse);
+    if (botResponse !== null) {
+      await apiClient.message
+        .post({
+          body: { content: botResponse, userId: user, role: 'bots' },
+        })
+        .catch(returnNull);
+    }
+
     await fetchMessages();
   };
 

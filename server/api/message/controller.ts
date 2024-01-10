@@ -4,6 +4,7 @@ import { defineController } from './$relay';
 export default defineController(() => ({
   get: async ({ query }) => {
     const result = await fetchMessage(query.userId);
+    // console.log(result);
     return { status: 200, body: result };
   },
   post: async ({ body }) => {
