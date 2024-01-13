@@ -6,7 +6,11 @@ import { useRouter } from 'next/navigation';
 import { auth } from 'src/utils/firebase';
 import styles from './index.module.css';
 
-const MenuBar = () => {
+interface MenuBarProps {
+  onCalendarClick: () => void;
+}
+
+const MenuBar = ({ onCalendarClick }: MenuBarProps) => {
   const router = useRouter();
   const userEmail = auth.currentUser?.email;
 
@@ -23,7 +27,7 @@ const MenuBar = () => {
       </IconButton>
       <div>{userEmail}</div>
       <IconButton color="primary" sx={{ marginLeft: 'auto' }}>
-        <CalendarMonthIcon sx={{ fontSize: '30px' }} />
+        <CalendarMonthIcon sx={{ fontSize: '30px' }} onClick={onCalendarClick} />
       </IconButton>
 
       <IconButton color="primary" sx={{ marginRight: '5px' }}>
