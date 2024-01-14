@@ -32,8 +32,12 @@ const Home = () => {
         <div className={styles.chat}>
           <Chat />
         </div>
-
-        <div className={styles.calendar}>{isCalendarOpen && <Calendar />}</div>
+        {isCalendarOpen && (
+          <div className={styles.calendar}>
+            <Calendar />
+          </div>
+        )}
+        {/* <div className={styles.calendar}>{isCalendarOpen && <Calendar />}</div> */}
       </div>
     </div>
   );

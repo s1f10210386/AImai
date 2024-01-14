@@ -18,3 +18,11 @@
 .chat {
   height: 92%;
 }
+
+.calendar {
+  display: flex;
+  width: 35%;
+  background-color: white; /* 黒色の半透明の背景 */
+  border: 1px solid #ccc; /* 枠線 */
+  transform: translate(175%, -205%); /* 中央揃えの調整 */
+}
