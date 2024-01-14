@@ -1,0 +1,51 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  overflow-y: auto;
+  background-color: rgb(34 47 85 / var(--tw-bg-opacity));
+
+  --tw-bg-opacity: 1;
+}
+
+.createroom {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 16px;
+  margin-top: 8px;
+  color: white;
+  cursor: pointer;
+  border-width: 1px;
+  border-radius: 8px;
+}
+
+.nocreateroom {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 16px;
+  margin-top: 8px;
+  color: white;
+  cursor: not-allowed;
+  border-width: 1px;
+  border-radius: 8px;
+}
+
+.createroom:hover {
+  background-color: gray;
+}
+
+.rooms {
+  display: flex;
+  padding: 16px;
+  color: white;
+  cursor: pointer;
+  border-bottom-width: 1px;
+}
+
+.rooms:hover {
+  background-color: gray;
+}

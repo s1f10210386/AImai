@@ -1,0 +1,4 @@
+/* stylelint-disable-next-line selector-class-pattern */
+.custom-calendar .MuiPickersDay-day[aria-label='Jan 14, 2024'] {
+  background-color: red;
+}
