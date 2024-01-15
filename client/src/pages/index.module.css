@@ -31,3 +31,12 @@
   border: 1px solid #ccc; /* 枠線 */
   transform: translate(175%, -205%); /* 中央揃えの調整 */
 }
+
+.setting {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgb(0 0 0 / 80%);
+}

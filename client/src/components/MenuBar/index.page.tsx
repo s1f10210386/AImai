@@ -6,11 +6,13 @@ import { useRouter } from 'next/navigation';
 import { auth } from 'src/utils/firebase';
 import styles from './index.module.css';
 
+//MenuBarはカレンダーとか設定の詳しい情報に関心を持たないからprops受け渡し(関心の分離)
 interface MenuBarProps {
   onCalendarClick: () => void;
+  onSettingsClick: () => void;
 }
 
-const MenuBar = ({ onCalendarClick }: MenuBarProps) => {
+const MenuBar = ({ onCalendarClick, onSettingsClick }: MenuBarProps) => {
   const router = useRouter();
   const userEmail = auth.currentUser?.email;
 
@@ -31,7 +33,7 @@ const MenuBar = ({ onCalendarClick }: MenuBarProps) => {
       </IconButton>
 
       <IconButton color="primary" sx={{ marginRight: '5px' }}>
-        <SettingsIcon sx={{ fontSize: '30px' }} />
+        <SettingsIcon sx={{ fontSize: '30px' }} onClick={onSettingsClick} />
       </IconButton>
     </div>
   );

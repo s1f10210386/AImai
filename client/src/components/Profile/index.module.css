@@ -1,0 +1,21 @@
+.popup {
+  position: absolute; /* 親要素（.setting）に対して絶対位置 */
+  top: 50%; /* 上から50%の位置に */
+  left: 50%; /* 左から50%の位置に */
+  flex-shrink: 0;
+  width: 50vw; /* 幅 */
+  height: 60vh; /* 高さ */
+  background-color: white; /* 背景色 */
+  border-radius: 10px; /* 角丸 */
+  transform: translate(-50%, -50%); /* 自身の高さと幅の半分だけ逆方向に移動 */
+}
+
+.popupcontent {
+  display: flex; /* Flexboxを有効化 */
+  flex-direction: column; /* 縦方向に並べる */
+  justify-content: space-between; /* 水平方向の中央配置 */
+  height: 80%;
+  margin: 20px;
+
+  /* border: 1px solid black; */
+}
