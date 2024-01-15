@@ -1,10 +1,12 @@
+import { useAtom } from 'jotai';
 import { useEffect, useState } from 'react';
+import { roomIdAtom } from 'src/atoms/user';
 import { apiClient } from 'src/utils/apiClient';
 import { auth } from 'src/utils/firebase';
 import { returnNull } from 'src/utils/returnNull';
 import styles from './index.module.css';
 
-type Room = {
+export type Room = {
   id: string;
   userId: string;
   timestamp: Date;
@@ -12,9 +14,10 @@ type Room = {
 
 const SideBar = () => {
   const [rooms, setRooms] = useState<Room[]>([]);
+  const [roomId, setRoomId] = useAtom(roomIdAtom);
   const [isClickable, setIsClickable] = useState(true);
   const user = auth.currentUser?.uid;
-  console.log('User', user);
+  // console.log('User', user);
 
   const fetchRooms = async () => {
     if (user === undefined) return;
@@ -25,6 +28,11 @@ const SideBar = () => {
   useEffect(() => {
     fetchRooms();
   });
+
+  const hoge = (roomId: string) => {
+    console.log('hoge', roomId);
+    setRoomId(roomId);
+  };
 
   const createRoom = async () => {
     if (user === undefined) return;
@@ -45,6 +53,12 @@ const SideBar = () => {
           <h1 style={{ fontWeight: '600' }}>New Day</h1>
         </div>
         <ul>
+          {rooms.map((room) => (
+            <li className={styles.rooms} key={room.id} onClick={() => hoge(room.id)}>
+              {room.id}
+            </li>
+          ))}
+
           <li className={styles.rooms}>12/24</li>
           <li className={styles.rooms}>12/25</li>
         </ul>

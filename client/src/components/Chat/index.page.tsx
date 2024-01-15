@@ -1,7 +1,9 @@
 import SendIcon from '@mui/icons-material/Send';
 import { IconButton } from '@mui/material';
+import { useAtom } from 'jotai';
 import { OpenAI } from 'openai';
 import { useEffect, useState } from 'react';
+import { roomIdAtom } from 'src/atoms/user';
 import { apiClient } from 'src/utils/apiClient';
 import { auth } from 'src/utils/firebase';
 import { returnNull } from 'src/utils/returnNull';
@@ -22,6 +24,7 @@ const Chat = () => {
   const [inputMessage, setInputMessage] = useState<string>('');
   const [messages, setMessages] = useState<Message[]>([]);
   const user = auth.currentUser?.uid;
+  const [roomId, setRoomId] = useAtom(roomIdAtom);
 
   // 全メッセージを取得
 
@@ -68,7 +71,7 @@ const Chat = () => {
 
   return (
     <div className={styles.chatContainer}>
-      <h1 className={styles.chatHeader}>12/25</h1>
+      <h1 className={styles.chatHeader}>{roomId}</h1>
 
       {/* メッセージ */}
       <div className={styles.messageList}>
