@@ -4,8 +4,14 @@ import { auth } from 'src/utils/firebase';
 import { returnNull } from 'src/utils/returnNull';
 import styles from './index.module.css';
 
+type Room = {
+  id: string;
+  userId: string;
+  timestamp: Date;
+};
+
 const SideBar = () => {
-  const [rooms, setRooms] = useState([]);
+  const [rooms, setRooms] = useState<Room[]>([]);
   const [isClickable, setIsClickable] = useState(true);
   const user = auth.currentUser?.uid;
   console.log('User', user);
