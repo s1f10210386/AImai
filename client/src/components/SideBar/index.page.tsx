@@ -29,9 +29,8 @@ const SideBar = () => {
     fetchRooms();
   });
 
-  const hoge = (roomId: string) => {
-    console.log('hoge', roomId);
-    setRoomId(roomId);
+  const handleClick = (timestamp: string) => {
+    setRoomId(timestamp);
   };
 
   const createRoom = async () => {
@@ -41,6 +40,12 @@ const SideBar = () => {
 
     await fetchRooms();
   };
+
+  const formattedRooms = rooms.map((room) => {
+    const date = new Date(room.timestamp);
+    const newtimestamp = `${date.getMonth() + 1}/${date.getDate()}`;
+    return { ...room, newtimestamp };
+  });
 
   return (
     <div className={styles.container}>
@@ -53,9 +58,13 @@ const SideBar = () => {
           <h1 style={{ fontWeight: '600' }}>New Day</h1>
         </div>
         <ul>
-          {rooms.map((room) => (
-            <li className={styles.rooms} key={room.id} onClick={() => hoge(room.id)}>
-              {room.id}
+          {formattedRooms.map((room) => (
+            <li
+              className={styles.rooms}
+              key={room.id}
+              onClick={() => handleClick(room.newtimestamp)}
+            >
+              {room.newtimestamp}
             </li>
           ))}
 
