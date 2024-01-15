@@ -5,9 +5,7 @@
   padding-right: 15px;
   padding-left: 15px;
   overflow-y: auto;
-  background-color: rgb(34 47 85 / var(--tw-bg-opacity));
-
-  --tw-bg-opacity: 1;
+  background-color: #87ceeb;
 }
 
 .createroom {
@@ -35,11 +33,12 @@
 }
 
 .createroom:hover {
-  background-color: gray;
+  background-color: #0096ff;
 }
 
 .rooms {
   display: flex;
+  justify-content: space-evenly;
   padding: 16px;
   color: white;
   cursor: pointer;
@@ -47,5 +46,5 @@
 }
 
 .rooms:hover {
-  background-color: gray;
+  background-color: #0096ff;
 }

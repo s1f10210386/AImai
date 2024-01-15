@@ -61,7 +61,7 @@ const SideBar = () => {
           <span style={{ color: 'white', fontSize: '20px' }}>+</span>
           <h1 style={{ fontWeight: '600' }}>New Day</h1>
         </div>
-        <ul>
+        <ul style={{ fontWeight: '600', fontSize: '18px' }}>
           {formattedRooms.map((room) => (
             <li
               className={styles.rooms}

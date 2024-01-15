@@ -3,6 +3,7 @@ import { IconButton } from '@mui/material';
 import { useAtom } from 'jotai';
 import { OpenAI } from 'openai';
 import { useEffect, useState } from 'react';
+import ReactLoading from 'react-loading';
 import { roomIdAtom, roomNameAtom } from 'src/atoms/user';
 import { apiClient } from 'src/utils/apiClient';
 import { auth } from 'src/utils/firebase';
@@ -26,7 +27,7 @@ const Chat = () => {
   const user = auth.currentUser?.uid;
   const [roomName, setRoomName] = useAtom(roomNameAtom);
   const [roomId, setRoomId] = useAtom(roomIdAtom);
-
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   // 全メッセージを取得
 
   const fetchMessages = async () => {
@@ -51,6 +52,7 @@ const Chat = () => {
       .catch(returnNull);
 
     setInputMessage('');
+    setIsLoading(true);
 
     const response = await openai.chat.completions.create({
       messages: [{ role: 'user', content: inputMessage }],
@@ -67,6 +69,7 @@ const Chat = () => {
         .catch(returnNull);
     }
 
+    setIsLoading(false);
     await fetchMessages();
   };
 
@@ -90,6 +93,9 @@ const Chat = () => {
             </div>
           </div>
         ))}
+        {isLoading && (
+          <ReactLoading type="spinningBubbles" color="#87CEEB" height={50} width={50} />
+        )}
       </div>
 
       {/* チャットバー */}
@@ -100,11 +106,11 @@ const Chat = () => {
           placeholder="メッセージ"
           className={styles.input}
           onChange={(e) => setInputMessage(e.target.value)}
-          // onKeyDown={(e) => {
-          //   if (e.key === 'Enter') {
-          //     sendMessage();
-          //   }
-          // }}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              sendMessage();
+            }
+          }}
         />
 
         <IconButton
