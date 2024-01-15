@@ -1,7 +1,22 @@
 import type { DefineMethods } from 'aspida';
 
 export type Methods = DefineMethods<{
-  get: {
-    resBody: string;
+  // get: {
+  //   query: {
+  //     userId: string;
+  //   };
+  //   resBody: {
+  //     id: string;
+  //     content: string;
+  //     userId: string;
+  //     timestamp: Date;
+  //     role: string;
+  //   }[];
+  // };
+
+  post: {
+    reqBody: {
+      userId: string;
+    };
   };
 }>;

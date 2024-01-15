@@ -19,13 +19,24 @@ model User {
   id    String   @id @default(uuid())
   email String
   messages Message[]
+  rooms    Room[]
+}
+
+model Room {
+  id        String      @id @default(uuid())
+  archived  Boolean     @default(false)
+  userId    String
+  messages  Message[]
+  user      User        @relation(fields: [userId], references: [id])
 }
 
 model Message {
   id        String   @id @default(uuid())
   content   String
   userId    String
+  roomId    String
   timestamp DateTime @default(now())
   role      String
   user      User     @relation(fields: [userId], references: [id])
+  room      Room     @relation(fields: [roomId], references: [id])
 }

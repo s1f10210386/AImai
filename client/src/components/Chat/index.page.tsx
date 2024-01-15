@@ -15,7 +15,7 @@ type Message = {
 const Chat = () => {
   const openai = new OpenAI({
     apiKey: process.env.NEXT_PUBLIC_OPENAI_KEY,
-    baseURL: 'https://api.openai.iniad.org/api/v1',
+    // baseURL: 'https://api.openai.iniad.org/api/v1',
     dangerouslyAllowBrowser: true,
   });
 
