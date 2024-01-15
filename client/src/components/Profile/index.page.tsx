@@ -3,7 +3,12 @@ import SendIcon from '@mui/icons-material/Send';
 import { Button, TextField } from '@mui/material';
 import styles from './index.module.css';
 
-const Profile = () => {
+interface ProfileProps {
+  onCancelClick: () => void;
+  onSaveClick: () => void;
+}
+
+const Profile = ({ onCancelClick, onSaveClick }: ProfileProps) => {
   return (
     <div className={styles.popup}>
       <h1 style={{ fontSize: '20px', fontWeight: 'bold', margin: '20px 0px 0px 20px' }}>
@@ -34,7 +39,8 @@ const Profile = () => {
           <Button
             variant="contained"
             startIcon={<KeyboardReturnIcon />}
-            sx={{ backgroundColor: '#FFCC80', marginRight: '20px' }}
+            sx={{ backgroundColor: '#9D9087', marginRight: '20px' }}
+            onClick={onCancelClick}
           >
             Cancel
           </Button>
@@ -43,6 +49,7 @@ const Profile = () => {
             type="submit"
             sx={{ backgroundColor: '#90caf9' }}
             endIcon={<SendIcon />}
+            onClick={onSaveClick}
           >
             SAVE
           </Button>

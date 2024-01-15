@@ -27,7 +27,7 @@ const MenuBar = ({ onCalendarClick, onSettingsClick }: MenuBarProps) => {
       <IconButton color="primary" sx={{ marginLeft: '5px' }} onClick={() => logout()}>
         <LogoutIcon sx={{ fontSize: '30px' }} />
       </IconButton>
-      <div>{userEmail}</div>
+      <div>ログイン中：{userEmail}</div>
       <IconButton color="primary" sx={{ marginLeft: 'auto' }}>
         <CalendarMonthIcon sx={{ fontSize: '30px' }} onClick={onCalendarClick} />
       </IconButton>

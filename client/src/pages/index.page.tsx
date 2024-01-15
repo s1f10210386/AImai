@@ -15,6 +15,7 @@ const Home = () => {
   const router = useRouter();
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const [isSettingOpen, setIsSettingOpen] = useState<boolean>(false);
+  const [isLoding, setIsLoading] = useState<boolean>(false);
 
   //ログイン状態じゃないならローディングしてリダイレクト
   if (!user) {
@@ -28,6 +29,15 @@ const Home = () => {
 
   const toggleSetting = () => {
     setIsSettingOpen(!isSettingOpen);
+  };
+
+  const toggleSave = () => {
+    setIsLoading(true);
+
+    setTimeout(() => {
+      setIsSettingOpen(!isSettingOpen);
+      setIsLoading(false);
+    }, 2000); // 5000ミリ秒 = 5秒
   };
 
   return (
@@ -50,7 +60,8 @@ const Home = () => {
         )}
         {isSettingOpen && (
           <div className={styles.setting}>
-            <Profile />
+            <Profile onCancelClick={toggleSetting} onSaveClick={toggleSave} />
+            {isLoding && <Loading visible />}
           </div>
         )}
       </div>
