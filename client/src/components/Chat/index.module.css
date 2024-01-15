@@ -7,7 +7,7 @@
 }
 
 .chatHeader {
-  margin-bottom: 1rem;
+  margin-bottom: 16px;
   font-size: 1.5rem;
   font-weight: 600;
   color: black;
@@ -15,7 +15,7 @@
 
 .messageList {
   flex-grow: 1;
-  margin-bottom: 16px;
+  margin-bottom: 10px;
   overflow-y: auto;
 }
 

@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import SendIcon from '@mui/icons-material/Send';
 import { IconButton } from '@mui/material';
 import { useAtom } from 'jotai';
@@ -84,7 +85,13 @@ const Chat = () => {
             key={index}
             className={message.role === 'user' ? styles.message : styles.messageLeft}
           >
-            <div className={message.role === 'user' ? styles.userAvatar : styles.botAvatar}>〇</div>
+            <div className={message.role === 'user' ? styles.userAvatar : styles.botAvatar}>
+              <img
+                src={message.role === 'user' ? '/images/userAvatar.png' : '/images/botAvatar.png'}
+                height={30}
+                width={43}
+              />
+            </div>
 
             <div className={message.role === 'user' ? styles.userMessage : styles.otherMessage}>
               <p style={{ color: message.role === 'user' ? 'white' : 'black' }}>
