@@ -1,6 +1,6 @@
 import { useAtom } from 'jotai';
 import { useEffect, useState } from 'react';
-import { roomIdAtom } from 'src/atoms/user';
+import { roomAtom, roomIdAtom, roomNameAtom } from 'src/atoms/user';
 import { apiClient } from 'src/utils/apiClient';
 import { auth } from 'src/utils/firebase';
 import { returnNull } from 'src/utils/returnNull';
@@ -13,12 +13,14 @@ export type Room = {
 };
 
 const SideBar = () => {
-  const [rooms, setRooms] = useState<Room[]>([]);
+  const [rooms, setRooms] = useAtom(roomAtom);
   const [roomId, setRoomId] = useAtom(roomIdAtom);
+  const [roomName, setRoomName] = useAtom(roomNameAtom);
   const [isClickable, setIsClickable] = useState(true);
   const user = auth.currentUser?.uid;
   // console.log('User', user);
 
+  // 全ルームを取得
   const fetchRooms = async () => {
     if (user === undefined) return;
     const roomList = await apiClient.room.$get({ query: { userId: user } }).catch(returnNull);
@@ -29,8 +31,9 @@ const SideBar = () => {
     fetchRooms();
   });
 
-  const handleClick = (timestamp: string) => {
-    setRoomId(timestamp);
+  const handleClick = (timestamp: string, roomId: string) => {
+    setRoomName(timestamp);
+    setRoomId(roomId);
   };
 
   const createRoom = async () => {
@@ -41,6 +44,7 @@ const SideBar = () => {
     await fetchRooms();
   };
 
+  //rooms取得してきた日付のフォーマットを変更
   const formattedRooms = rooms.map((room) => {
     const date = new Date(room.timestamp);
     const newtimestamp = `${date.getMonth() + 1}/${date.getDate()}`;
@@ -62,14 +66,11 @@ const SideBar = () => {
             <li
               className={styles.rooms}
               key={room.id}
-              onClick={() => handleClick(room.newtimestamp)}
+              onClick={() => handleClick(room.newtimestamp, room.id)}
             >
               {room.newtimestamp}
             </li>
           ))}
-
-          <li className={styles.rooms}>12/24</li>
-          <li className={styles.rooms}>12/25</li>
         </ul>
       </div>
     </div>

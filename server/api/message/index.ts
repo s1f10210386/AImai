@@ -3,12 +3,13 @@ import type { DefineMethods } from 'aspida';
 export type Methods = DefineMethods<{
   get: {
     query: {
-      userId: string;
+      roomId: string;
     };
     resBody: {
       id: string;
       content: string;
       userId: string;
+      roomId: string;
       timestamp: Date;
       role: string;
     }[];
@@ -18,6 +19,7 @@ export type Methods = DefineMethods<{
     reqBody: {
       content: string;
       userId: string;
+      roomId: string;
       role: string;
     };
   };

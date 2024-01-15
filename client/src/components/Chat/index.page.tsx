@@ -3,7 +3,7 @@ import { IconButton } from '@mui/material';
 import { useAtom } from 'jotai';
 import { OpenAI } from 'openai';
 import { useEffect, useState } from 'react';
-import { roomIdAtom } from 'src/atoms/user';
+import { roomIdAtom, roomNameAtom } from 'src/atoms/user';
 import { apiClient } from 'src/utils/apiClient';
 import { auth } from 'src/utils/firebase';
 import { returnNull } from 'src/utils/returnNull';
@@ -24,13 +24,14 @@ const Chat = () => {
   const [inputMessage, setInputMessage] = useState<string>('');
   const [messages, setMessages] = useState<Message[]>([]);
   const user = auth.currentUser?.uid;
+  const [roomName, setRoomName] = useAtom(roomNameAtom);
   const [roomId, setRoomId] = useAtom(roomIdAtom);
 
   // 全メッセージを取得
 
   const fetchMessages = async () => {
     if (user === undefined) return;
-    const messageList = await apiClient.message.$get({ query: { userId: user } }).catch(returnNull);
+    const messageList = await apiClient.message.$get({ query: { roomId } }).catch(returnNull);
     if (messageList !== null) setMessages(messageList);
   };
 
@@ -45,7 +46,7 @@ const Chat = () => {
 
     await apiClient.message
       .post({
-        body: { content: inputMessage, userId: user, role: 'user' },
+        body: { content: inputMessage, userId: user, roomId, role: 'user' },
       })
       .catch(returnNull);
 
@@ -61,7 +62,7 @@ const Chat = () => {
     if (botResponse !== null) {
       await apiClient.message
         .post({
-          body: { content: botResponse, userId: user, role: 'bots' },
+          body: { content: botResponse, userId: user, roomId, role: 'bots' },
         })
         .catch(returnNull);
     }
@@ -71,7 +72,7 @@ const Chat = () => {
 
   return (
     <div className={styles.chatContainer}>
-      <h1 className={styles.chatHeader}>{roomId}</h1>
+      <h1 className={styles.chatHeader}>{roomName}</h1>
 
       {/* メッセージ */}
       <div className={styles.messageList}>
