@@ -1,18 +1,31 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { apiClient } from 'src/utils/apiClient';
 import { auth } from 'src/utils/firebase';
 import { returnNull } from 'src/utils/returnNull';
 import styles from './index.module.css';
 
 const SideBar = () => {
+  const [rooms, setRooms] = useState([]);
   const [isClickable, setIsClickable] = useState(true);
   const user = auth.currentUser?.uid;
   console.log('User', user);
+
+  const fetchRooms = async () => {
+    if (user === undefined) return;
+    const roomList = await apiClient.room.$get({ query: { userId: user } }).catch(returnNull);
+    if (roomList !== null) setRooms(roomList);
+  };
+
+  useEffect(() => {
+    fetchRooms();
+  });
 
   const createRoom = async () => {
     if (user === undefined) return;
     await apiClient.room.post({ body: { userId: user } }).catch(returnNull);
     setIsClickable(!isClickable);
+
+    await fetchRooms();
   };
 
   return (

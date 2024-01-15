@@ -25,6 +25,7 @@ model User {
 model Room {
   id        String      @id @default(uuid())
   archived  Boolean     @default(false)
+  timestamp DateTime @default(now())
   userId    String
   messages  Message[]
   user      User        @relation(fields: [userId], references: [id])
