@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import { useAtom } from 'jotai';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -15,6 +16,7 @@ const Home = () => {
   const router = useRouter();
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const [isSettingOpen, setIsSettingOpen] = useState<boolean>(false);
+  const [isResult, setIsResult] = useState<boolean>(false);
   const [isLoding, setIsLoading] = useState<boolean>(false);
 
   //ログイン状態じゃないならローディングしてリダイレクト
@@ -22,6 +24,19 @@ const Home = () => {
     router.push('/login');
     return <Loading visible />;
   }
+
+  const toggleDone = () => {
+    setIsLoading(true);
+    setIsResult(!isResult);
+
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 5000); // 5000ミリ秒 = 5秒
+
+    setTimeout(() => {
+      setIsResult(false);
+    }, 8000);
+  };
 
   const toggleCalendar = () => {
     setIsCalendarOpen(!isCalendarOpen);
@@ -47,12 +62,18 @@ const Home = () => {
       </div>
       <div className={styles.main} style={{ width: '120vh' }}>
         <div className={styles.menu}>
-          <MenuBar onCalendarClick={toggleCalendar} onSettingsClick={toggleSetting} />
+          <MenuBar
+            onDoneClick={toggleDone}
+            onCalendarClick={toggleCalendar}
+            onSettingsClick={toggleSetting}
+          />
         </div>
 
         <div className={styles.chat}>
           <Chat />
         </div>
+        {isLoding && <Loading visible />}
+        {isResult && <div className={styles.result}>a</div>}
         {isCalendarOpen && (
           <div className={styles.calendar}>
             <Calendar />

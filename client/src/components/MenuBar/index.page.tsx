@@ -1,4 +1,5 @@
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import DoneIcon from '@mui/icons-material/Done';
 import LogoutIcon from '@mui/icons-material/Logout';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { IconButton } from '@mui/material';
@@ -10,9 +11,10 @@ import styles from './index.module.css';
 interface MenuBarProps {
   onCalendarClick: () => void;
   onSettingsClick: () => void;
+  onDoneClick: () => void;
 }
 
-const MenuBar = ({ onCalendarClick, onSettingsClick }: MenuBarProps) => {
+const MenuBar = ({ onCalendarClick, onSettingsClick, onDoneClick }: MenuBarProps) => {
   const router = useRouter();
   const userEmail = auth.currentUser?.email;
 
@@ -27,8 +29,13 @@ const MenuBar = ({ onCalendarClick, onSettingsClick }: MenuBarProps) => {
       <IconButton color="primary" sx={{ marginLeft: '5px' }} onClick={() => logout()}>
         <LogoutIcon sx={{ fontSize: '30px' }} />
       </IconButton>
-      <div>ログイン中：{userEmail}</div>
-      <IconButton color="primary" sx={{ marginLeft: 'auto' }}>
+      <div style={{ marginLeft: '5px' }}>ログイン中：{userEmail}</div>
+
+      <IconButton color="primary" sx={{ marginLeft: 'auto', marginRight: '5px' }}>
+        <DoneIcon sx={{ fontSize: '30px' }} onClick={onDoneClick} />
+      </IconButton>
+
+      <IconButton color="primary" sx={{ marginRight: '5px' }}>
         <CalendarMonthIcon sx={{ fontSize: '30px' }} onClick={onCalendarClick} />
       </IconButton>
 

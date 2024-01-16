@@ -5,6 +5,9 @@ export const fetchRoom = async (userId: string) => {
     where: {
       userId,
     },
+    orderBy: {
+      timestamp: 'desc', // ここで'createdAt'を降順に指定
+    },
   });
   return message;
 };
