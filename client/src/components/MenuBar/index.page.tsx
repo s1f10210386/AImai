@@ -36,7 +36,8 @@ const MenuBar = ({ onCalendarClick, onSettingsClick, onDoneClick }: MenuBarProps
       </IconButton>
 
       <IconButton color="primary" sx={{ marginRight: '5px' }}>
-        <CalendarMonthIcon sx={{ fontSize: '30px' }} onClick={onCalendarClick} />
+        {/* <CalendarMonthIcon sx={{ fontSize: '30px' }} onClick={onCalendarClick} /> */}
+        <CalendarMonthIcon sx={{ fontSize: '30px' }} />
       </IconButton>
 
       <IconButton color="primary" sx={{ marginRight: '5px' }}>

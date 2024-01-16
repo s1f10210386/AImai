@@ -55,8 +55,11 @@ const Chat = () => {
     setInputMessage('');
     setIsLoading(true);
 
+    const promptMessage = `条件:
+    ・「お疲れ〜！面接と勉強で忙しい時期だもんね。いつも頑張っていて偉いよ！今日あったことを教えてもらえるかな？気分が晴れるかも」とだけ答えて\n${inputMessage}`;
+
     const response = await openai.chat.completions.create({
-      messages: [{ role: 'user', content: inputMessage }],
+      messages: [{ role: 'user', content: promptMessage }],
       model: 'gpt-3.5-turbo',
     });
     const botResponse = response.choices[0].message.content;

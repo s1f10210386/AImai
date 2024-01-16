@@ -5,6 +5,9 @@ export const fetchMessage = async (roomId: string) => {
     where: {
       roomId,
     },
+    orderBy: {
+      timestamp: 'asc',
+    },
   });
   return message;
 };

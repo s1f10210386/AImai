@@ -16,7 +16,7 @@ const Profile = ({ onCancelClick, onSaveClick }: ProfileProps) => {
       </h1>
       <div className={styles.popupcontent}>
         <TextField
-          label="どんなAIにする？"
+          label="どんなAIにする？(100字以内)"
           multiline
           rows={10}
           variant="outlined"
