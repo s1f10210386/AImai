@@ -31,7 +31,7 @@ const Home = () => {
 
     setTimeout(() => {
       setIsLoading(false);
-    }, 5000); // 5000ミリ秒 = 5秒
+    }, 3000); // 5000ミリ秒 = 5秒
 
     setTimeout(() => {
       setIsResult(false);
