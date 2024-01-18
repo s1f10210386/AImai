@@ -52,7 +52,7 @@ const Home = () => {
     setTimeout(() => {
       setIsSettingOpen(!isSettingOpen);
       setIsLoading(false);
-    }, 2000); // 5000ミリ秒 = 5秒
+    }, 3000); // 5000ミリ秒 = 5秒
   };
 
   return (
