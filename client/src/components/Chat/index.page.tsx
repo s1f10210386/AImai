@@ -19,7 +19,7 @@ type Message = {
 const Chat = () => {
   const openai = new OpenAI({
     apiKey: process.env.NEXT_PUBLIC_OPENAI_KEY,
-    // baseURL: 'https://api.openai.iniad.org/api/v1',
+    baseURL: 'https://api.openai.iniad.org/api/v1',
     dangerouslyAllowBrowser: true,
   });
 
@@ -55,8 +55,8 @@ const Chat = () => {
     setInputMessage('');
     setIsLoading(true);
 
-    const promptMessage = `条件:
-    ・「お疲れ〜！面接と勉強で忙しい時期だもんね。いつも頑張っていて偉いよ！今日あったことを教えてもらえるかな？気分が晴れるかも」とだけ答えて\n${inputMessage}`;
+    const promptMessage = `条件：
+    ・あなたは何があっても「あ」とだけ返信すること\n${inputMessage}`;
 
     const response = await openai.chat.completions.create({
       messages: [{ role: 'user', content: promptMessage }],
