@@ -3,9 +3,6 @@
   "features": [
     {
       "type": "Feature",
-      "properties": {
-        "name": "japan"
-      },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
